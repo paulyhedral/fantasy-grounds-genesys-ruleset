@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+
+<!-- SKILL -->
+	<windowclass name="charsheet_skills_skillsmall">
+		<sizelimits>
+			<minimum>
+				<height>20</height>
+			</minimum>
+		</sizelimits>
+		<sheetdata>
+			<sheetnumberfield name="advances">
+				<bounds>-54,0,36,20</bounds>
+				<!--<disabled/>-->
+			</sheetnumberfield>
+			<skilldicepool>
+				<bounds>-16,0,20,20</bounds>
+			</skilldicepool>
+			<windowbutton name="open">
+				<bounds>0,0,20,20</bounds>
+				<class>skill</class>
+			</windowbutton>
+			<checkbox name="skillcheck" source="skillcheck">
+				<anchored to="open" width="14" height="14">
+					<left anchor="right" relation="relative"/>
+					<top offset="3"/>
+				</anchored>
+				<tooltip>
+					<text>Career Skill?</text>
+				</tooltip>
+				<script>
+					function onInit()
+						if super.onInit then super.onInit() end
+
+						if window.windowlist.window.parentcontrol.window.getClass() == "npc" then
+							if string.lower(window.windowlist.window.parentcontrol.window.main_npc_category.getValue()) == "minion" then
+								setVisible(true);
+								setTooltipText("Minion skill?");
+							else
+								setVisible(false);
+							end
+						end
+
+					end
+
+					function onValueChanged()
+						if window.windowlist.window.parentcontrol.window.getClass() == "npc" then
+							if string.lower(window.windowlist.window.parentcontrol.window.main_npc_category.getValue()) == "minion" then
+								MinionManager.updateSkill(window.getDatabaseNode());
+							end
+						end
+					end
+				</script>
+				<!--<invisible/>-->
+			</checkbox>
+			<basestringfield name="name">
+				<anchored to="open" height="14">
+					<left anchor="right" relation="relative" offset="3"/>
+					<top offset="3"/>
+				</anchored>
+				<anchored>
+					<right parent="advances" anchor="left" offset="-3"/>
+				</anchored>
+<!--				<anchored to="advances">
+					<right anchor="left" offset="3"/>
+				</anchored>	-->
+				<!--<bounds>21,3,-80,17</bounds>-->
+				<empty>&#171; New Skill &#187;</empty>
+				<disabled />
+			</basestringfield>
+		</sheetdata>
+	</windowclass>
+
+<!-- WINDOW -->
+	<windowclass name="charsheetskills">
+		<placement>
+			<size>
+				<width>509</width>
+				<height>557</height>
+			</size>
+		</placement>
+		<nodelete />
+		<sheetdata>
+
+<!-- CHARACTERISTICS -->
+			<sheetframe name="skills_characteristics">
+				<bounds>14,5,351,87</bounds>
+				<frame>
+					<name>sheetgroup</name>
+				</frame>
+			</sheetframe>
+			<sheetframetitle name="skills_characteristics_title">
+				<anchored>
+					<to>skills_characteristics</to>
+				</anchored>
+				<static>Characteristics</static>
+			</sheetframetitle>
+
+			<!-- STRENGTH BRAWN -->
+			<sheetcharacteristicvalue name="skills_characteristics_brawn_current" source="brawn.current">
+				<anchored>
+					<to>skills_characteristics</to>
+					<offset>17,24</offset>
+				</anchored>
+				<tabtarget>
+					<next>skills_characteristics_brawn_bonus</next>
+					<prev>skills_characteristics_stance_reckless</prev>
+				</tabtarget>
+			</sheetcharacteristicvalue>
+
+			<sheettitle>
+				<anchored>
+					<top>
+						<parent>skills_characteristics_brawn_current</parent>
+						<anchor>bottom</anchor>
+						<offset>3</offset>
+					</top>
+					<left>
+						<parent>skills_characteristics_brawn_current</parent>
+						<anchor>left</anchor>
+						<offset>-20</offset>
+					</left>
+					<right>
+						<parent>skills_characteristics_brawn_current</parent>
+						<anchor>right</anchor>
+						<offset>20</offset>
+					</right>
+					<size>
+						<height>20</height>
+					</size>
+				</anchored>
+				<center />
+				<static>Brawn</static>
+			</sheettitle>
+
+			<!-- TOUGHNESS AGILITY-->
+			<sheetcharacteristicvalue name="skills_characteristics_agility_current" source="agility.current">
+				<anchored>
+					<to>skills_characteristics</to>
+					<offset>73,24</offset>
+				</anchored>
+				<tabtarget>
+					<next>skills_characteristics_agility_bonus</next>
+					<prev>skills_characteristics_brawn_bonus</prev>
+				</tabtarget>
+			</sheetcharacteristicvalue>
+
+			<sheettitle>
+				<anchored>
+					<top>
+						<parent>skills_characteristics_agility_current</parent>
+						<anchor>bottom</anchor>
+						<offset>3</offset>
+					</top>
+					<left>
+						<parent>skills_characteristics_agility_current</parent>
+						<anchor>left</anchor>
+						<offset>-20</offset>
+					</left>
+					<right>
+						<parent>skills_characteristics_agility_current</parent>
+						<anchor>right</anchor>
+						<offset>20</offset>
+					</right>
+					<size>
+						<height>20</height>
+					</size>
+				</anchored>
+				<center />
+				<static>Agility</static>
+			</sheettitle>
+
+			<!-- AGILITY INTELLECT-->
+			<sheetcharacteristicvalue name="skills_characteristics_intellect_current" source="intellect.current">
+				<anchored>
+					<to>skills_characteristics</to>
+					<offset>129,24</offset>
+				</anchored>
+				<tabtarget>
+					<next>skills_characteristics_intellect_bonus</next>
+					<prev>skills_characteristics_agility_bonus</prev>
+				</tabtarget>
+			</sheetcharacteristicvalue>
+
+			<sheettitle>
+				<anchored>
+					<top>
+						<parent>skills_characteristics_intellect_current</parent>
+						<anchor>bottom</anchor>
+						<offset>3</offset>
+					</top>
+					<left>
+						<parent>skills_characteristics_intellect_current</parent>
+						<anchor>left</anchor>
+						<offset>-20</offset>
+					</left>
+					<right>
+						<parent>skills_characteristics_intellect_current</parent>
+						<anchor>right</anchor>
+						<offset>20</offset>
+					</right>
+					<size>
+						<height>20</height>
+					</size>
+				</anchored>
+				<center />
+				<static>Intellect</static>
+			</sheettitle>
+
+			<!-- INTELLIGENCE CUNNING-->
+			<sheetcharacteristicvalue name="skills_characteristics_cunning_current" source="cunning.current">
+				<anchored>
+					<to>skills_characteristics</to>
+					<offset>185,24</offset>
+				</anchored>
+				<tabtarget>
+					<next>skills_characteristics_cunning_bonus</next>
+					<prev>skills_characteristics_intellect_bonus</prev>
+				</tabtarget>
+			</sheetcharacteristicvalue>
+
+			<sheettitle>
+				<anchored>
+					<top>
+						<parent>skills_characteristics_cunning_current</parent>
+						<anchor>bottom</anchor>
+						<offset>3</offset>
+					</top>
+					<left>
+						<parent>skills_characteristics_cunning_current</parent>
+						<anchor>left</anchor>
+						<offset>-20</offset>
+					</left>
+					<right>
+						<parent>skills_characteristics_cunning_current</parent>
+						<anchor>right</anchor>
+						<offset>20</offset>
+					</right>
+					<size>
+						<height>20</height>
+					</size>
+				</anchored>
+				<center />
+				<static>Cunning</static>
+			</sheettitle>
+
+			<!-- WILLPOWER WILLPOWER-->
+			<sheetcharacteristicvalue name="skills_characteristics_willpower_current" source="willpower.current">
+				<anchored>
+					<to>skills_characteristics</to>
+					<offset>241,24</offset>
+				</anchored>
+				<tabtarget>
+					<next>skills_characteristics_willpower_bonus</next>
+					<prev>skills_characteristics_cunning_bonus</prev>
+				</tabtarget>
+			</sheetcharacteristicvalue>
+
+			<sheettitle>
+				<anchored>
+					<top>
+						<parent>skills_characteristics_willpower_current</parent>
+						<anchor>bottom</anchor>
+						<offset>3</offset>
+					</top>
+					<left>
+						<parent>skills_characteristics_willpower_current</parent>
+						<anchor>left</anchor>
+						<offset>-20</offset>
+					</left>
+					<right>
+						<parent>skills_characteristics_willpower_current</parent>
+						<anchor>right</anchor>
+						<offset>20</offset>
+					</right>
+					<size>
+						<height>20</height>
+					</size>
+				</anchored>
+				<center />
+				<static>Willpower</static>
+			</sheettitle>
+
+			<!-- FELLOWSHIP PRESENCE-->
+			<sheetcharacteristicvalue name="skills_characteristics_presence_current" source="presence.current">
+				<anchored>
+					<to>skills_characteristics</to>
+					<offset>297,24</offset>
+				</anchored>
+				<tabtarget>
+					<next>skills_characteristics_presence_bonus</next>
+					<prev>skills_characteristics_willpower_bonus</prev>
+				</tabtarget>
+			</sheetcharacteristicvalue>
+
+			<sheettitle>
+				<anchored>
+					<top>
+						<parent>skills_characteristics_presence_current</parent>
+						<anchor>bottom</anchor>
+						<offset>3</offset>
+					</top>
+					<left>
+						<parent>skills_characteristics_presence_current</parent>
+						<anchor>left</anchor>
+						<offset>-20</offset>
+					</left>
+					<right>
+						<parent>skills_characteristics_presence_current</parent>
+						<anchor>right</anchor>
+						<offset>20</offset>
+					</right>
+					<size>
+						<height>20</height>
+					</size>
+				</anchored>
+				<center />
+				<static>Presence</static>
+			</sheettitle>
+
+<!-- INITIATIVE -->
+			<sheetframe name="combat_init">
+				<bounds>363,5,120,87</bounds>
+			</sheetframe>
+			<sheetframetitle name="combat_init_title">
+				<anchored>
+					<to>combat_init</to>
+				</anchored>
+				<static>Initiative</static>
+			</sheetframetitle>
+
+			<!-- Cool -->
+			<sheetlabel name="combat_init_cool">
+				<anchored>
+					<to>combat_init</to>
+					<offset>34,27</offset>
+					<size>
+						<width>50</width>
+					</size>
+				</anchored>
+				<static>Cool</static>
+			</sheetlabel>
+
+			<initdicepool name="combat_init_cool_btn">
+				<anchored>
+					<to>combat_init</to>
+					<offset>85,27</offset>
+					<position>insidetopleft</position>
+					<size>
+						<width>18</width>
+						<height>14</height>
+					</size>
+				</anchored>
+				<!--<bounds>118,26,10,10</bounds>-->
+			</initdicepool>
+
+<!--			<sheetnumberfield name="combat_init_cool" source="init.cool">
+				<anchored>
+					<to>combat_init</to>
+					<offset>76,26</offset>
+					<size>
+						<width>25</width>
+					</size>
+				</anchored>
+				<!{1}**<disabled />**{1}>
+			</sheetnumberfield>-->
+
+			<!-- Vigilance -->
+			<sheetlabel name = "combat_init_vigilance">
+				<anchored>
+					<to>combat_init</to>
+					<offset>20,54</offset>
+					<size>
+						<width>64</width>
+					</size>
+				</anchored>
+				<static>Vigilance</static>
+			</sheetlabel>
+
+			<initdicepool name="combat_init_vigilance_btn">
+				<anchored>
+					<to>combat_init</to>
+					<offset>85,54</offset>
+					<position>insidetopleft</position>
+					<size>
+						<width>18</width>
+						<height>14</height>
+					</size>
+				</anchored>
+				<!--<bounds>118,26,10,10</bounds>-->
+			</initdicepool>
+
+			<!-- Armour Updater -->
+			<genericcontrol>
+				<bounds>0,0,1,1</bounds>
+				<!--<script>
+					function updateArmour()
+						local inventorynode = window.getDatabaseNode().getChild("inventory");
+						if inventorynode then
+							local defence = 0;
+							local soak = 0;
+							for k, n in pairs(inventorynode.getChildren()) do
+								local isequippednode = n.getChild("isequipped");
+								if isequippednode then
+									if isequippednode.getValue() == 1 then
+										local isarmournode = n.getChild("isarmour");
+										if isarmournode then
+											if isarmournode.getValue() == 1 then
+												defence = defence + n.getChild("armour.defence").getValue();
+												soak = soak + n.getChild("armour.soak").getValue();
+											end
+										end
+									end
+								end
+							end
+							window.combat_armour_defence.setValue(defence);
+							window.combat_armour_soak.setValue(soak);
+						end
+					end
+
+					function onChildAdded(source, child)
+						updateArmour();
+					end
+
+					function onChildUpdate(source)
+						updateArmour()
+					end
+
+					function onInit()
+						local inventorynode = window.getDatabaseNode().getChild("inventory");
+						if inventorynode then
+							inventorynode.onChildAdded = onChildAdded;
+							inventorynode.onChildUpdate = onChildUpdate;
+						end
+						updateArmour();
+					end
+
+				</script> -->
+			</genericcontrol>
+
+
+<!-- BASIC SKILLS -->
+			<sheetframe name="skills_basic">
+				<!--<bounds>12,166,238,380</bounds>-->
+				<bounds>14,88,238,-10</bounds>
+			</sheetframe>
+			<sheetframetitle name="skills_basic_title">
+				<anchored>
+					<to>skills_basic</to>
+				</anchored>
+				<static>Basic Skills</static>
+			</sheetframetitle>
+
+			<!-- SKILLS -->
+			<sheetlist name="skills_basic_skills">
+				<anchored>
+					<left>
+						<parent>skills_basic</parent>
+						<anchor>left</anchor>
+						<offset>12</offset>
+					</left>
+					<right>
+						<parent>skills_basic</parent>
+						<anchor>right</anchor>
+						<offset>-13</offset>
+					</right>
+					<top>
+						<parent>skills_basic</parent>
+						<anchor>top</anchor>
+						<offset>18</offset>
+					</top>
+					<bottom>
+						<parent>skills_basic</parent>
+						<anchor>bottom</anchor>
+						<offset>-13</offset>
+					</bottom>
+				</anchored>
+				<datasource>.skills</datasource>
+				<class>charsheet_skills_skillsmall</class>
+<!--				<allowcreate />-->
+				<allowdelete />
+				<script>
+					function onFilter(w)
+						local windownode = w.getDatabaseNode();
+						if windownode then
+							local advancednode = windownode.getChild("advanced");
+							if advancednode and advancednode.getValue() == 1 then
+								return false;
+							end
+							local knowledgenode = windownode.getChild("knowledge");
+							if knowledgenode and knowledgenode.getValue() == 1 then
+								return false;
+							end
+						end
+						return true;
+					end
+
+					function onInit()
+						local node = getDatabaseNode();
+						if node and node.isOwner() then
+							registerMenuItem("Create Item", "insert", 5);
+						end
+
+						local skillsnode = window.getDatabaseNode().getChild("skills");
+						if skillsnode then
+							local skillautocreated = skillsnode.createChild("..skillsautogenerated", "number");
+							if skillautocreated.getValue() ~= 1 then
+								for k,v in pairs(DataCommon.basicskilldata) do
+									local skillnode = skillsnode.createChild();
+									skillnode.createChild("name","string").setValue(k);
+									skillnode.createChild("characteristic","string").setValue(v.characteristic);
+									skillnode.createChild("description","formattedtext").setValue(v.description);
+								end
+								skillsnode.getChild("..skillsautogenerated").setValue(1);
+							end
+						end
+					end
+
+					function onMenuSelection(selection)
+						if selection == 5 then
+							local node = getDatabaseNode();
+							if node and node.isOwner() then
+								local child = node.createChild();
+							end
+						end
+					end
+
+					function onDrop(x, y, draginfo)
+						local type = draginfo.getType();
+						if type == "shortcut" then
+							local class, recordname = draginfo.getShortcutData();
+							if class == "skill" then
+								local recordnode = DB.findNode(recordname)
+								if recordnode and not recordnode.isStatic() and recordnode.isOwner() then
+									if string.find(recordnode.getNodeName(), window.getDatabaseNode().getNodeName(), 1, true) then
+										recordnode.createChild("advanced", "number").setValue(0);
+										return true;
+									end
+								end
+							end
+						end
+					end
+				</script>
+			</sheetlist>
+			<scrollbar>
+				<anchored>
+					<to>skills_basic_skills</to>
+					<offset>-3,-2</offset>
+				</anchored>
+				<target>skills_basic_skills</target>
+			</scrollbar>
+
+<!-- KNOWLEDGE SKILLS -->
+			<sheetframe name="skills_knowledge">
+				<bounds>250,88,234,198</bounds>
+			</sheetframe>
+			<sheetframetitle name="skills_knowledge_title">
+				<anchored>
+					<to>skills_knowledge</to>
+				</anchored>
+				<static>Knowledge Skills</static>
+			</sheetframetitle>
+
+			<!-- SKILLS -->
+			<sheetlist name="skills_knowledge_skills">
+				<anchored>
+					<left>
+						<parent>skills_knowledge</parent>
+						<anchor>left</anchor>
+						<offset>12</offset>
+					</left>
+					<right>
+						<parent>skills_knowledge</parent>
+						<anchor>right</anchor>
+						<offset>-13</offset>
+					</right>
+					<top>
+						<parent>skills_knowledge</parent>
+						<anchor>top</anchor>
+						<offset>18</offset>
+					</top>
+					<bottom>
+						<parent>skills_knowledge</parent>
+						<anchor>bottom</anchor>
+						<offset>-13</offset>
+					</bottom>
+				</anchored>
+				<datasource>.skills</datasource>
+				<class>charsheet_skills_skillsmall</class>
+				<allowdelete />
+				<script>
+					function onInit()
+						local node = getDatabaseNode();
+						if node and node.isOwner() then
+							registerMenuItem("Create Item", "insert", 5);
+						end
+
+						local skillsnode = window.getDatabaseNode().getChild("skills");
+						if skillsnode then
+							local knowledgeautocreated = skillsnode.createChild("..skillsknowledgeautogenerated", "number");
+							if knowledgeautocreated.getValue() ~= 1 then
+								for k,v in pairs(DataCommon.knowledgeskilldata) do
+									local skillnode = skillsnode.createChild();
+									skillnode.createChild("name","string").setValue(k);
+									skillnode.createChild("characteristic","string").setValue(v.characteristic);
+									skillnode.createChild("description","formattedtext").setValue(v.description);
+									skillnode.createChild("knowledge","number").setValue(v.knowledge);
+								end
+								skillsnode.getChild("..skillsknowledgeautogenerated").setValue(1);
+							end
+						end
+					end
+
+					function onMenuSelection(selection)
+						if selection == 5 then
+							local node = getDatabaseNode();
+							if node and node.isOwner() then
+								local child = node.createChild();
+								child.createChild("knowledge", "number").setValue(1);
+							end
+						end
+					end
+
+					function onFilter(w)
+						local windownode = w.getDatabaseNode();
+						if windownode then
+							local advancednode = windownode.getChild("knowledge");
+							if advancednode and advancednode.getValue() == 1 then
+								return true;
+							end
+						end
+						return false;
+					end
+
+					function onDrop(x, y, draginfo)
+						local type = draginfo.getType();
+						if type == "shortcut" then
+							local class, recordname = draginfo.getShortcutData();
+							if class == "skill" then
+								local recordnode = DB.findNode(recordname)
+								if recordnode and not recordnode.isStatic() and recordnode.isOwner() then
+									if string.find(recordnode.getNodeName(), window.getDatabaseNode().getNodeName(), 1, true) then
+										recordnode.createChild("knowledge", "number").setValue(1);
+										return true;
+									end
+								end
+							end
+						end
+					end
+				</script>
+			</sheetlist>
+			<scrollbar>
+				<anchored>
+					<to>skills_knowledge_skills</to>
+					<offset>-3,-2</offset>
+				</anchored>
+				<target>skills_knowledge_skills</target>
+			</scrollbar>
+
+<!-- COMBAT (Advanced) SKILLS -->
+			<sheetframe name="skills_advanced">
+				<!--<bounds>248,282,236,186</bounds>-->
+				<bounds>250,282,234,-10</bounds>
+			</sheetframe>
+			<sheetframetitle name="skills_advanced_title">
+				<anchored>
+					<to>skills_advanced</to>
+				</anchored>
+				<static>Combat Skills</static>
+			</sheetframetitle>
+
+			<!-- SKILLS -->
+			<sheetlist name="skills_advanced_skills">
+				<anchored>
+					<left>
+						<parent>skills_advanced</parent>
+						<anchor>left</anchor>
+						<offset>12</offset>
+					</left>
+					<right>
+						<parent>skills_advanced</parent>
+						<anchor>right</anchor>
+						<offset>-13</offset>
+					</right>
+					<top>
+						<parent>skills_advanced</parent>
+						<anchor>top</anchor>
+						<offset>18</offset>
+					</top>
+					<bottom>
+						<parent>skills_advanced</parent>
+						<anchor>bottom</anchor>
+						<offset>-13</offset>
+					</bottom>
+				</anchored>
+				<datasource>.skills</datasource>
+				<class>charsheet_skills_skillsmall</class>
+				<allowdelete />
+				<script>
+					function onInit()
+						local node = getDatabaseNode();
+						if node and node.isOwner() then
+							registerMenuItem("Create Item", "insert", 5);
+						end
+
+						local skillsnode = window.getDatabaseNode().getChild("skills");
+						if skillsnode then
+							local combatautocreated = skillsnode.createChild("..skillscombatautogenerated", "number");
+							if combatautocreated.getValue() ~= 1 then
+								for k,v in pairs(DataCommon.combatskilldata) do
+									local skillnode = skillsnode.createChild();
+									skillnode.createChild("name","string").setValue(k);
+									skillnode.createChild("characteristic","string").setValue(v.characteristic);
+									skillnode.createChild("description","formattedtext").setValue(v.description);
+									skillnode.createChild("advanced","number").setValue(v.advanced);
+								end
+								skillsnode.getChild("..skillscombatautogenerated").setValue(1);
+							end
+						end
+					end
+
+					function onMenuSelection(selection)
+						if selection == 5 then
+							local node = getDatabaseNode();
+							if node and node.isOwner() then
+								local child = node.createChild();
+								child.createChild("advanced", "number").setValue(1);
+							end
+						end
+					end
+
+					function onFilter(w)
+						local windownode = w.getDatabaseNode();
+						if windownode then
+							local advancednode = windownode.getChild("advanced");
+							if advancednode and advancednode.getValue() == 1 then
+								return true;
+							end
+						end
+						return false;
+					end
+
+					function onDrop(x, y, draginfo)
+						local type = draginfo.getType();
+						if type == "shortcut" then
+							local class, recordname = draginfo.getShortcutData();
+							if class == "skill" then
+								local recordnode = DB.findNode(recordname)
+								if recordnode and not recordnode.isStatic() and recordnode.isOwner() then
+									if string.find(recordnode.getNodeName(), window.getDatabaseNode().getNodeName(), 1, true) then
+										recordnode.createChild("advanced", "number").setValue(1);
+										return true;
+									end
+								end
+							end
+						end
+					end
+				</script>
+			</sheetlist>
+			<scrollbar>
+				<anchored>
+					<to>skills_advanced_skills</to>
+					<offset>-3,-2</offset>
+				</anchored>
+				<target>skills_advanced_skills</target>
+			</scrollbar>
+
+		</sheetdata>
+	</windowclass>
+</root>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+	<icon name="corruptionchit" file="graphics/chits/corruption.png" />
+	<icon name="crownchit" file="graphics/chits/crown.png" />
+	<icon name="fatiguechit" file="graphics/chits/fatigue.png" />
+	<icon name="favourchit" file="graphics/chits/favour.png" />
+	<icon name="fortunechit" file="graphics/chits/fortune.png" />
+	<icon name="pennychit" file="graphics/chits/penny.png" />
+	<icon name="powerchit" file="graphics/chits/power.png" />
+	<icon name="rechargechit" file="graphics/chits/recharge.png" />
+	<icon name="shillingchit" file="graphics/chits/shilling.png" />
+	<icon name="stresschit" file="graphics/chits/stress.png" />
+	<icon name="strainchit" file="graphics/chits/strain.png" />
+	<icon name="woundchit" file="graphics/chits/wound.png" />
+	<icon name="playerchit" file="graphics/chits/playerside.png" />
+	<icon name="playerchit1" file="graphics/chits/playerside1.png" />
+	<icon name="playerchit2" file="graphics/chits/playerside2.png" />
+	<icon name="playerchit3" file="graphics/chits/playerside3.png" />
+	<icon name="playerchit4" file="graphics/chits/playerside4.png" />
+	<icon name="playerchit5" file="graphics/chits/playerside5.png" />
+	<icon name="playerchit6" file="graphics/chits/playerside6.png" />
+	<icon name="playerchit7" file="graphics/chits/playerside7.png" />
+	<icon name="playerchit8more" file="graphics/chits/playerside8more.png" />
+	<icon name="playerchit0" file="graphics/chits/playerside0.png" />
+	<icon name="gmchit" file="graphics/chits/gmside.png" />
+	<icon name="gmchit1" file="graphics/chits/gmside1.png" />
+	<icon name="gmchit2" file="graphics/chits/gmside2.png" />
+	<icon name="gmchit3" file="graphics/chits/gmside3.png" />
+	<icon name="gmchit4" file="graphics/chits/gmside4.png" />
+	<icon name="gmchit5" file="graphics/chits/gmside5.png" />
+	<icon name="gmchit6" file="graphics/chits/gmside6.png" />
+	<icon name="gmchit7" file="graphics/chits/gmside7.png" />
+	<icon name="gmchit8more" file="graphics/chits/gmside8more.png" />
+	<icon name="gmchit0" file="graphics/chits/gmside0.png" />
+
+	<icon name="criticalchit" file="graphics/chits/critical_personal.png" />
+	<icon name="criticalvehiclechit" file="graphics/chits/critical_vehicle.png" />
+
+</root>

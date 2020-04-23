@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+
+	<windowclass name="identityselection_newentry">
+		<sizelimits>
+			<minimum>
+				<height>92</height>
+			</minimum>
+			<maximum>
+				<width>235</width>
+			</maximum>
+		</sizelimits>
+		<frame>modifier</frame>
+		<script>
+			function requestResponse(result, identity)
+				if result and iden12tity then
+					windowlist.window.close();
+				end
+			end
+		</script>
+		<sheetdata>
+			<basestringcontrol name="label">
+				<bounds>40,37,-10,20</bounds>
+				<font>sheettext</font>
+				<empty>&#171; Create New Character &#187;</empty>
+			</basestringcontrol>
+
+			<genericcontrol name="base">
+				<bounds>0,0,-1,-1</bounds>
+				<script file="classes/utilities/identityselectionnewentrybase.lua" />
+			</genericcontrol>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="identityselection_entry">
+		<sizelimits>
+			<minimum>
+				<height>92</height>
+			</minimum>
+			<maximum>
+				<width>235</width>
+			</maximum>
+		</sizelimits>
+		<frame>modifier</frame>
+		<script file="classes/utilities/identityselectionentry.lua" />
+		<sheetdata>
+			<genericcontrol name="base">
+				<bounds>0,0,-1,-1</bounds>
+				<script file="classes/utilities/identityselectionentrybase.lua" />
+			</genericcontrol>
+			<genericcontrol name="portrait">
+				<bounds>10,11,72,72</bounds>
+				<icon>charlist_base</icon>
+				<disabled />
+			</genericcontrol>
+			<portraitselectioncontrol name="localportrait">
+				<bounds>10,11,72,72</bounds>
+				<base>charlist_base</base>
+				<mask>charlist_mask</mask>
+				<script>
+					function onDrop(x, y, draginfo)
+						if draginfo.isType("portraitselection") then
+							local portraitfile = draginfo.getStringData();
+							setFile(portraitfile);
+							User.setLocalIdentityPortrait(window.localdatabasenode, portraitfile);
+							return true;
+						end
+					end
+				</script>
+			</portraitselectioncontrol>
+			<basestringcontrol name="campaign">
+				<bounds>90,50,-10,20</bounds>
+				<font>chatfont</font>
+				<disabled />
+			</basestringcontrol>
+			<genericcontrol name="error">
+				<bounds>-65,15,56,56</bounds>
+				<icon>indicator_error</icon>
+				<disabled />
+				<invisible />
+			</genericcontrol>
+			<basestringcontrol name="label">
+				<bounds>90,31,-10,20</bounds>
+				<font>sheettext</font>
+				<empty>&#171; Unnamed &#187;</empty>
+				<disabled />
+			</basestringcontrol>
+		</sheetdata>
+	</windowclass>
+
+<!--LOBOSOLO edit Frame and title - BEGIN -->
+	<windowclass name="identityselection">
+		<frame>indexbox</frame>
+		<placement>
+			<size>
+				<width>570</width>
+				<height>450</height>
+			</size>
+		</placement>
+		<sheetdata>
+		<!-- Title -->
+			<genericcontrol>
+				<bounds>111,0,348,40</bounds>
+				<frame>
+					<name>indexboxtitlecharacters</name>
+				</frame>
+			</genericcontrol>
+			<basewindowlist name="list">
+				<bounds>50,43,470,370</bounds>
+<!--LOBOSOLO edit Frame and title - END -->
+				<class>identityselection_entry</class>
+				<columns>
+					<width>235</width>
+					<fillwidth />
+				</columns>
+				<script file="classes/utilities/identityselectionlist.lua" />
+			</basewindowlist>
+<!--LOBOSOLO update scroller and close button - BEGIN -->
+			<scrollercontrol>
+				<bounds>-60,-41,45,27</bounds>
+				<target>list</target>
+				<button>
+					<normal>button_scroller</normal>
+					<pressed>button_scroller_down</pressed>
+					<zoom>button_zoomer_clear</zoom>
+					<zoompressed>button_zoomer_clear_down</zoompressed>
+				</button>
+			</scrollercontrol>
+			
+			<closebutton>
+				<anchored>
+					<top>
+						<offset>0</offset>
+					</top>
+					<right>
+						<offset>-6</offset>
+					</right>
+				</anchored>
+			</closebutton>
+<!--LOBOSOLO update scroller and close button - END -->
+		</sheetdata>
+	</windowclass>
+</root>

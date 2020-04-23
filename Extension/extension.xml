@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root version="3.0" release="4">
+	<announcement text="Genesys Extension for the Star Wars ruleset. v0.1 Trenloe.\rCopyright 2017 Smiteworks USA, LLC." font="Dwarven" icon=""/>
+
+	<properties>
+		<name>Genesys SW Extension</name>
+		<version>0.1</version>
+		
+		<author>Trenloe</author>
+		<description></description>
+		
+		<ruleset>Star Wars EotE</ruleset>
+	</properties>
+
+	<base>		
+		<!--Direct copy from base SW EotE ruleset - needed to load extension weapondicepool.lua file-->
+		<template name="weapondicepool">
+			<buttoncontrol>
+				<icon>
+					<normal>textentry_die</normal>
+				</icon>
+				<script file="classes/common/weapondicepool.lua" />
+			</buttoncontrol>
+		</template>
+		
+		<template name="weaponskillcontrol">
+			<genericcontrol>
+				<frame>
+					<name>modifier</name>
+					<offset>4,5,4,4</offset>
+				</frame>
+				<anchored>
+					<size>
+						<width>25</width>
+						<height>16</height>
+					</size>
+				</anchored>			
+				<script file="classes/common/weaponskillcontrol.lua" />
+			</genericcontrol>
+		</template>			
+	
+		<!--Register new skills and remove Star Wars options-->
+		<script name="Genesys_Data_Common" file="Genesys_Data_Common.lua" /> 
+		
+		<!--Remove the force dice values from the character sheet-->
+		<windowclass name="charsheetmain" merge="join">
+			<sheetdata>
+				<sheetframe name="force_rating" merge="delete" />
+				<sheetframetitle name="force_rating_title" merge="delete" />
+				<sheetlabel name="force_rating_total_label" merge="delete" />
+				<sheetnumberfield name="force_rating_total" source="force.total" merge="delete" />
+				<sheetlabel name="force_rating_spent_label" merge="delete" />
+				<sheetnumberfield name="force_rating_spent" source="force.spent" merge="delete" />
+				<sheetlabel name="main_characteristics_force_current_label" merge="delete" />
+				<sheetforcevalue name="main_characteristics_force_current" source="force.current" merge="delete" />
+			</sheetdata>
+		</windowclass>		
+		
+		<!--Use a new desktop graphic - essentially remove the Star Wars logo-->
+		<framedef name="desktop">
+			<bitmap file="graphics/frames/desktop.png" />
+			<middle rect="0,0,512,512" />
+			<right rect="512,0,97,512" />
+			<decal rect="612,0,512,512" />
+		</framedef>		
+	</base>
+</root>

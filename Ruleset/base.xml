@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root version="3.0" release="1.1.2" logo="logo.png">
+	<description>
+		<text>Genesys community ruleset</text>
+		<author>Paul Schifferer - based on Star Wars: Edge of the Empire ruleset by JamesManhattan</author>
+		<website>http://fantasyflightgames.com/</website>
+	</description>
+
+	<announcement text="Genesys community ruleset V1.0.0 (FGU 4.0 beta). Base ruleset by Paul Schifferer, copied wholesale from JamesManhattan and modified.\r\rThis ruleset is a community project developed for no monetary gain and with the understanding that game mechanics are not protected by US Copyright laws: http://www.copyright.gov/fls/fl108.html\rAs such, no literary work (which is covered by US Copyright) has been included in this ruleset. Genesys is a trademark owned by Fantasy Flight Games. Reference to other copyrighted material in no way constitutes a challenge to the respective copyright holders of that material." font="emotefont" icon="" />
+
+	<!-- desktop frame -->
+	<desktopframe>desktop</desktopframe>
+
+	<!-- token root folder -->
+	<tokenroot>
+		<source>tokens</source>
+	</tokenroot>
+
+	<!-- image update folder -->
+	<imageupdatefolder>
+		<folder>images</folder>
+		<rootnode>images</rootnode>
+		<field>image</field>
+		<namefield>name</namefield>
+	</imageupdatefolder>
+
+	<!-- String resources -->
+	<includefile source="strings/strings_campaign.xml" />
+
+	<!-- includes -->
+	<includefile source="classes/base.xml" />
+	<includefile source="definitions/base.xml" />
+	<includefile source="graphics/base.xml" />
+	<includefile source="managers/base.xml" />
+
+	<!-- initialization -->
+	<script name="Base" file="base.lua" />
+</root>

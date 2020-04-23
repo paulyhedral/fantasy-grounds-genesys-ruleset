@@ -7,6 +7,6 @@ scriptdir="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 pushd ${scriptdir}/../Ruleset
 
-zip -9r ${scriptdir}/.. .
+zip -9r ${scriptdir}/../Genesys.pak .
 
 popd
